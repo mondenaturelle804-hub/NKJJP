@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalPlan AI - Générateur de Plans Santé & Sport</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Landing Page -->
+        <div id="landing-page" class="page">
+            <div class="landing-container">
+                <header class="landing-header">
+                    <h1 class="logo">🏥 VitalPlan AI</h1>
+                    <p class="tagline">Vos plans santé et sport générés par l'IA</p>
+                </header>
+
+                <div class="landing-content">
+                    <section class="features">
+                        <div class="feature-card">
+                            <span class="feature-icon">🤖</span>
+                            <h3>Génération IA</h3>
+                            <p>Plans personnalisés basés sur l'IA Anthropic Claude</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">📊</span>
+                            <h3>Suivi Détaillé</h3>
+                            <p>Tableau de bord avec statistiques et graphiques</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">💾</span>
+                            <h3>Historique</h3>
+                            <p>Accès complet à tous vos plans générés</p>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">📱</span>
+                            <h3>Responsive</h3>
+                            <p>Utilisable sur tous les appareils</p>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="auth-buttons">
+                    <button class="btn btn-primary" onclick="showAuthForm('login')">Se connecter</button>
+                    <button class="btn btn-secondary" onclick="showAuthForm('register')">S'inscrire</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auth Modal -->
+        <div id="auth-modal" class="modal" style="display: none;">
+            <div class="modal-content auth-form-container">
+                <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+                    <h2>Connexion</h2>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Mot de passe</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                    <p class="form-toggle">Pas de compte ? <a href="#" onclick="switchAuthForm('register'); return false;">S'inscrire</a></p>
+                </form>
+
+                <!-- Register Form -->
+                <form id="register-form" class="auth-form" style="display: none;" onsubmit="handleRegister(event)">
+                    <h2>Inscription</h2>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Mot de passe</label>
+                        <input type="password" id="register-password" name="password" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-firstname">Prénom (optionnel)</label>
+                        <input type="text" id="register-firstname" name="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-lastname">Nom (optionnel)</label>
+                        <input type="text" id="register-lastname" name="lastName">
+                    </div>
+                    <button type="submit" class="btn btn-primary">S'inscrire</button>
+                    <p class="form-toggle">Déjà inscrit ? <a href="#" onclick="switchAuthForm('login'); return false;">Se connecter</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main App (hidden initially) -->
+        <div id="main-app" style="display: none;">
+            <!-- Navbar -->
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <h1>🏥 VitalPlan AI</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#dashboard" onclick="navigate('dashboard')">Tableau de bord</a></li>
+                    <li><a href="#generator" onclick="navigate('generator')">Générer un plan</a></li>
+                    <li><a href="#history" onclick="navigate('history')">Historique</a></li>
+                    <li><a href="#profile" onclick="navigate('profile')">Profil</a></li>
+                </ul>
+                <div class="user-menu">
+                    <span id="user-name"></span>
+                    <button class="btn btn-secondary btn-small" onclick="handleLogout()">Déconnexion</button>
+                </div>
+            </nav>
+
+            <!-- Page Container -->
+            <div class="page-container">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <nav class="sidebar-nav">
+                        <a href="#dashboard" class="nav-item active" onclick="navigate('dashboard')">
+                            <span class="icon">📊</span>
+                            <span>Tableau de bord</span>
+                        </a>
+                        <a href="#generator" class="nav-item" onclick="navigate('generator')">
+                            <span class="icon">✨</span>
+                            <span>Générer plan</span>
+                        </a>
+                        <a href="#history" class="nav-item" onclick="navigate('history')">
+                            <span class="icon">📚</span>
+                            <span>Historique</span>
+                        </a>
+                        <a href="#profile" class="nav-item" onclick="navigate('profile')">
+                            <span class="icon">👤</span>
+                            <span>Profil</span>
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Content -->
+                <main class="main-content">
+                    <!-- Dashboard Page -->
+                    <div id="dashboard-page" class="page" style="display: none;"></div>
+
+                    <!-- Generator Page -->
+                    <div id="generator-page" class="page" style="display: none;"></div>
+
+                    <!-- History Page -->
+                    <div id="history-page" class="page" style="display: none;"></div>
+
+                    <!-- Profile Page -->
+                    <div id="profile-page" class="page" style="display: none;"></div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/generator.js"></script>
+    <script src="js/history.js"></script>
+</body>
+</html>
