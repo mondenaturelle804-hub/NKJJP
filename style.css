@@ -1,0 +1,234 @@
+/* Nouveau style pour Fist.html */
+:root {
+    --background: #fff7fb;
+    --surface: #ffffffdd;
+    --text: #3d1f3f;
+    --subtext: #5e4364;
+    --accent: #cd5c9c;
+    --accent-dark: #9b2c5a;
+    --border: rgba(155, 44, 90, 0.14);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(180deg, #fff5fb 0%, #f7e3f0 55%, #f1d4e7 100%);
+    color: var(--text);
+    line-height: 1.65;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(205, 92, 156, 0.12), transparent 25%),
+                radial-gradient(circle at bottom right, rgba(155, 44, 90, 0.12), transparent 22%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page-title {
+    animation: softGlow 6s ease-in-out infinite;
+}
+
+@keyframes softGlow {
+    0%, 100% { text-shadow: 0 0 12px rgba(205, 92, 156, 0.35); }
+    50% { text-shadow: 0 0 30px rgba(205, 92, 156, 0.55); }
+}
+
+.heart {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.4rem;
+    color: rgba(205, 92, 156, 0.95);
+    text-shadow: 0 0 14px rgba(205, 92, 156, 0.4);
+    animation: floatHeart 2.6s ease-out forwards;
+    z-index: 9999;
+}
+
+@keyframes floatHeart {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    60% { opacity: 0.85; transform: translateY(-36px) scale(1.1); }
+    100% { opacity: 0; transform: translateY(-96px) scale(0.9); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.page-title {
+    transform-origin: center;
+    animation: pulse 8s ease-in-out infinite;
+}
+
+header {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1.25rem 1rem;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: var(--accent-dark);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 0.8rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--border);
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+nav a:hover,
+nav a:focus-visible {
+    transform: translateY(-2px);
+    background: rgba(205, 92, 156, 0.12);
+    color: var(--accent);
+}
+
+main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 1rem 2rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0.8rem 0 1rem;
+    text-align: center;
+}
+
+h5,
+h6 {
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+}
+
+h1.page-title {
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    letter-spacing: 0.06em;
+    color: var(--accent-dark);
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--accent);
+}
+
+section.card {
+    display: grid;
+    gap: 1.5rem;
+    margin: 1.75rem auto;
+    padding: 1.8rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1.8rem;
+    box-shadow: 0 18px 40px rgba(120, 56, 106, 0.1);
+}
+
+section.card:nth-child(even) {
+    background: rgba(255, 248, 252, 0.95);
+}
+
+section.card .media {
+    display: block;
+    width: 100%;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35), 0 14px 30px rgba(140, 62, 115, 0.12);
+}
+
+section.card .media img,
+section.card .media video {
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+section.card .content {
+    display: grid;
+    gap: 1rem;
+}
+
+section.card .content h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    color: var(--accent-dark);
+}
+
+section.card .content p {
+    margin: 0;
+    color: var(--subtext);
+    white-space: pre-line;
+    font-size: 1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0 2rem;
+    color: var(--subtext);
+    font-size: 0.95rem;
+}
+
+@media (min-width: 900px) {
+    section.card {
+        grid-template-columns: 420px 1fr;
+        align-items: center;
+    }
+
+    section.card .content {
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 680px) {
+    body {
+        padding-bottom: 1rem;
+    }
+
+    nav {
+        gap: 0.9rem;
+    }
+
+    nav a {
+        padding: 0.75rem 0.95rem;
+    }
+
+    section.card {
+        padding: 1.35rem;
+    }
+}
